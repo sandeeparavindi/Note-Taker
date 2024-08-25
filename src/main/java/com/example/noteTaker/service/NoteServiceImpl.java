@@ -14,13 +14,13 @@ public final class NoteServiceImpl implements NoteService {
     public NoteServiceImpl(){
         saveNoteTm.add(new NoteDTO("NOTE 4f8a0a67-2ebc-41b2-9de6-4e9bcdba65bb",
                 "MadolDuwa","hiud","second","2024-08-25"));
-        saveNoteTm.add(new NoteDTO("NOTE 4f8a0a67-2ebc-41b2-9de6-4e9bcdba66bb",
+        saveNoteTm.add(new NoteDTO("NOTE-4f8a0a67-2ebc-41b2-9de6-4e9bcdba66bb",
                 "MadolDuwa","hiud","second","2024-08-25"));
-        saveNoteTm.add(new NoteDTO("NOTE 4f8a0a67-2ebc-41b2-9de6-4e9bcdba67bb",
+        saveNoteTm.add(new NoteDTO("NOTE-4f8a0a67-2ebc-41b2-9de6-4e9bcdba67bb",
                 "MadolDuwa","hiud","second","2024-08-25"));
-        saveNoteTm.add(new NoteDTO("NOTE 4f8a0a67-2ebc-41b2-9de6-4e9bcdba68bb",
+        saveNoteTm.add(new NoteDTO("NOTE-4f8a0a67-2ebc-41b2-9de6-4e9bcdba68bb",
                 "MadolDuwa","hiud","second","2024-08-25"));
-        saveNoteTm.add(new NoteDTO("NOTE 4f8a0a67-2ebc-41b2-9de6-4e9bcdba69bb",
+        saveNoteTm.add(new NoteDTO("NOTE-4f8a0a67-2ebc-41b2-9de6-4e9bcdba69bb",
                 "MadolDuwa","hiud","second","2024-08-25"));
         System.out.println(saveNoteTm);
     }

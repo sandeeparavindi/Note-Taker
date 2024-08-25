@@ -3,6 +3,7 @@ package com.example.noteTaker.controller;
 import com.example.noteTaker.service.NoteService;
 import com.example.noteTaker.dto.NoteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +36,13 @@ public class NoteController {
         return noteService.getSelectedNote(noteId);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping(value = "/{noteId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public void updateNote(@PathVariable ("noteId") String noteId, @RequestBody NoteDTO note) {
         noteService.updateNote(noteId,note);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value ="/{noteId}" )
     public void deleteNote(@PathVariable ("noteId") String noteId) {
         noteService.deleteNote(noteId);
