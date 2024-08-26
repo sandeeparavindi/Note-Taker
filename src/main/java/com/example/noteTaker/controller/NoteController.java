@@ -2,6 +2,8 @@ package com.example.noteTaker.controller;
 
 import com.example.noteTaker.service.NoteService;
 import com.example.noteTaker.dto.NoteDTO;
+import com.example.noteTaker.util.AppUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/vi/note")
+@RequiredArgsConstructor
 public class NoteController {
 
     @Autowired
@@ -20,7 +23,6 @@ public class NoteController {
     //crud
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createNote(@RequestBody NoteDTO note) {
-        //Handle with BO
         var saveData = noteService.saveNote(note);
         return ResponseEntity.ok(saveData);
     }
