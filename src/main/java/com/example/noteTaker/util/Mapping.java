@@ -24,4 +24,6 @@ public class Mapping {
     public List<NoteDTO> converToDTO(List<NoteEntity> notes){
         return modelMapper.map(notes, List.class);
     }
+
+    //User Matters mapping
 }
