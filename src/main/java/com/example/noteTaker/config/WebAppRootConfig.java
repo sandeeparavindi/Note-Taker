@@ -7,23 +7,21 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = "com.example.noteTaker")
-@EnableWebMvc
 @EnableJpaRepositories(basePackages = "com.example.noteTaker")
 @EnableTransactionManagement
 public class WebAppRootConfig {
+    //presentation layer ekath ekk direct link wela nthi configurations api danne root configurstion class eke
+    //DAO layer ekath ekka smbnda nis thmai me class ekat dmme
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();

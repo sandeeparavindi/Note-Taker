@@ -8,7 +8,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @ComponentScan(basePackages = "com.example.noteTaker")
-@EnableWebMvc
+@EnableWebMvc //http request response handle krnn wishesha wela thina annotation ekak. presentation
+// layer ektne adla e nis app congig eke withrak dnw. root config ekt danne nh
 @EnableJpaRepositories(basePackages = "com.example.noteTaker")
 @EnableTransactionManagement
 public class WebAppConfig {
