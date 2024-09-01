@@ -2,6 +2,7 @@ package com.example.noteTaker.service;
 
 import com.example.noteTaker.dao.NoteDAO;
 import com.example.noteTaker.dto.NoteDTO;
+import com.example.noteTaker.entity.NoteEntity;
 import com.example.noteTaker.util.AppUtil;
 import com.example.noteTaker.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional// Component annotation eka meta anotate krla thinne service annotation eka athule
@@ -29,8 +31,17 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public void updateNote(String noteId, NoteDTO incomeNoteDTO) {
-
+    public boolean updateNote(String noteId, NoteDTO incomeNoteDTO) {
+        Optional<NoteEntity> tmpNoteEntity = noteDAO.findById(noteId);
+        if (!tmpNoteEntity.isPresent()){
+            return false;
+        } else {
+            tmpNoteEntity.get().setNoteDesc(incomeNoteDTO.getNoteDesc());
+            tmpNoteEntity.get().setNoteTitle(incomeNoteDTO.getNoteTitle());
+            tmpNoteEntity.get().setCreateDate(incomeNoteDTO.getCreateDate());
+            tmpNoteEntity.get().setPriorityLevel(incomeNoteDTO.getPriorityLevel());
+        }
+        return true;
     }
 
     @Override

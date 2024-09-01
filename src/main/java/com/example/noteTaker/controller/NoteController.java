@@ -38,10 +38,10 @@ public class NoteController {
         return noteService.getSelectedNote(noteId);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping(value = "/{noteId}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public void updateNote(@PathVariable ("noteId") String noteId, @RequestBody NoteDTO note) {
-        noteService.updateNote(noteId,note);
+    public ResponseEntity<String> updateNote(@PathVariable ("noteId") String noteId, @RequestBody NoteDTO note) {
+        return noteService.updateNote(noteId,note) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping(value ="/{noteId}" )
