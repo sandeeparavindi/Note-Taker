@@ -44,7 +44,12 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public NoteDTO getSelectedNote(String noteId) {
-        return null;
+//     NoteEntity selectedNote = noteDAO.getReferenceById(noteId);
+//     NoteDTO noteDTO = mapping.convertToDTO(selectedNote);
+//     return noteDTO;
+
+        return mapping.convertToDTO(noteDAO.getReferenceById(noteId));
+
     }
 
     @Override
