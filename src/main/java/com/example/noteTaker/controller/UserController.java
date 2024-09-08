@@ -38,4 +38,15 @@ public class UserController {
         return  new ResponseEntity<>(userService.saveUser(buildUserDto), HttpStatus.CREATED);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable ("id") String userId) {
+        return userService.deleteUser(userId) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserDTO getSelectedUser(@PathVariable ("id") String userId){
+        return userService.getSelectedUser(userId);
+    }
+
 }

@@ -2,6 +2,7 @@ package com.example.noteTaker.service;
 
 import com.example.noteTaker.dao.UserDAO;
 import com.example.noteTaker.dto.UserDTO;
+import com.example.noteTaker.entity.UserEntity;
 import com.example.noteTaker.util.AppUtil;
 import com.example.noteTaker.util.Mapping;
 import lombok.RequiredArgsConstructor;
@@ -34,12 +35,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUser(String userId) {
-        return false;
+        if (userDAO.existsById(userId)) {
+            userDAO.deleteById(userId);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public UserDTO getSelectedUser(String userId) {
-        return null;
+        UserEntity userEntityByUserId = userDAO.getUserEntityByUserId(userId);
+        return mapping.convertToUserDTO(userEntityByUserId);
     }
 
     @Override

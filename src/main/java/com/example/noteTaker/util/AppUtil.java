@@ -9,7 +9,7 @@ public class AppUtil {
     }
 
     public static String createUserId(){
-        return "USER"+ UUID.randomUUID().toString();
+        return "USER-"+ UUID.randomUUID().toString();
     }
 
     public static String toBase64ProfilePic(String profilePic) {
