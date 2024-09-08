@@ -1,5 +1,6 @@
-package com.example.noteTaker.dto;
+package com.example.noteTaker.dto.impl;
 
+import com.example.noteTaker.customObj.UserResponse;
 import com.example.noteTaker.entity.NoteEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 
-public class UserDTO implements Serializable {
+public class UserDTO implements UserResponse, Serializable {
     private String userId;
     private String firstName;
     private String lastName;

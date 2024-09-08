@@ -1,6 +1,8 @@
 package com.example.noteTaker.controller;
 
-import com.example.noteTaker.dto.UserDTO;
+import com.example.noteTaker.customObj.UserResponse;
+import com.example.noteTaker.dto.impl.UserDTO;
+import com.example.noteTaker.exception.UserNotFoundException;
 import com.example.noteTaker.service.UserService;
 import com.example.noteTaker.util.AppUtil;
 import lombok.RequiredArgsConstructor;
@@ -37,17 +39,28 @@ public class UserController {
         buildUserDto.setPassword(password);
         buildUserDto.setProfilePic(base64ProfilePic);
 
-        return  new ResponseEntity<>(userService.saveUser(buildUserDto), HttpStatus.CREATED);
+        var saveStatus = userService.saveUser(buildUserDto);
+        if (saveStatus.contains("User saved successfully")){
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable ("id") String userId) {
-        return userService.deleteUser(userId) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> deleteUser(@PathVariable ("id") String userId) {
+        try {
+            userService.deleteUser(userId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO getSelectedUser(@PathVariable ("id") String userId){
+    public UserResponse getSelectedUser(@PathVariable ("id") String userId){
         return userService.getSelectedUser(userId);
     }
 
@@ -57,7 +70,7 @@ public class UserController {
     }
 
     @PatchMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> updateUser(
+    public ResponseEntity<Void> updateUser(
             @PathVariable ("id") String id,
             @RequestPart("updateFirstName") String updateFirstName,
             @RequestPart ("updateLastName") String updateLastName,
@@ -65,16 +78,22 @@ public class UserController {
             @RequestPart ("updatePassword") String updatePassword,
             @RequestPart ("updateProfilePic") String updateProfilePic
     ){
-        String updateBase64ProfilePic = AppUtil.toBase64ProfilePic(updateProfilePic);
-        var updateUser = new UserDTO();
-        updateUser.setUserId(id);
-        updateUser.setFirstName(updateFirstName);
-        updateUser.setLastName(updateLastName);
-        updateUser.setPassword(updatePassword);
-        updateUser.setEmail(updateEmail);
-        updateUser.setProfilePic(updateBase64ProfilePic);
-        return userService.updateUser(updateUser)? new ResponseEntity<>(HttpStatus.NO_CONTENT)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            String updateBase64ProfilePic = AppUtil.toBase64ProfilePic(updateProfilePic);
+            var updateUser = new UserDTO();
+            updateUser.setUserId(id);
+            updateUser.setFirstName(updateFirstName);
+            updateUser.setLastName(updateLastName);
+            updateUser.setPassword(updatePassword);
+            updateUser.setEmail(updateEmail);
+            updateUser.setProfilePic(updateBase64ProfilePic);
+            userService.updateUser(updateUser);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

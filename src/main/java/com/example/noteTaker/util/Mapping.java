@@ -1,7 +1,7 @@
 package com.example.noteTaker.util;
 
-import com.example.noteTaker.dto.NoteDTO;
-import com.example.noteTaker.dto.UserDTO;
+import com.example.noteTaker.dto.impl.NoteDTO;
+import com.example.noteTaker.dto.impl.UserDTO;
 import com.example.noteTaker.entity.NoteEntity;
 import com.example.noteTaker.entity.UserEntity;
 import org.modelmapper.ModelMapper;

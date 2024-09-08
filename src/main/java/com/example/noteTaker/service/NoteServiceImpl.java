@@ -1,7 +1,7 @@
 package com.example.noteTaker.service;
 
 import com.example.noteTaker.dao.NoteDAO;
-import com.example.noteTaker.dto.NoteDTO;
+import com.example.noteTaker.dto.impl.NoteDTO;
 import com.example.noteTaker.entity.NoteEntity;
 import com.example.noteTaker.util.AppUtil;
 import com.example.noteTaker.util.Mapping;

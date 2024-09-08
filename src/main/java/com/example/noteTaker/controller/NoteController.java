@@ -1,8 +1,7 @@
 package com.example.noteTaker.controller;
 
 import com.example.noteTaker.service.NoteService;
-import com.example.noteTaker.dto.NoteDTO;
-import com.example.noteTaker.util.AppUtil;
+import com.example.noteTaker.dto.impl.NoteDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

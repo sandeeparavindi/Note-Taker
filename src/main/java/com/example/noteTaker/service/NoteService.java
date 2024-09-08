@@ -1,6 +1,6 @@
 package com.example.noteTaker.service;
 
-import com.example.noteTaker.dto.NoteDTO;
+import com.example.noteTaker.dto.impl.NoteDTO;
 
 import java.util.List;
 
