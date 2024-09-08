@@ -5,12 +5,12 @@ import com.example.noteTaker.customObj.UserResponse;
 import com.example.noteTaker.dao.UserDAO;
 import com.example.noteTaker.dto.impl.UserDTO;
 import com.example.noteTaker.entity.UserEntity;
+import com.example.noteTaker.exception.DataPersistFailedException;
 import com.example.noteTaker.exception.UserNotFoundException;
 import com.example.noteTaker.util.AppUtil;
 import com.example.noteTaker.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +27,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private final Mapping mapping;
     @Override
-    public String saveUser(UserDTO userDTO) {
+    public void saveUser(UserDTO userDTO) {
         userDTO.setUserId(AppUtil.createUserId());
         UserEntity savedUser =
                 userDAO.save(mapping.converToUserEntity(userDTO));
-        if(savedUser != null && savedUser.getUserId() != null ) {
-            return "User saved successfully";
-        }else {
-            return "Save failed";
+        if(savedUser == null && savedUser.getUserId() == null ) {
+            throw new DataPersistFailedException("Cannot data saved");
         }
     }
 
