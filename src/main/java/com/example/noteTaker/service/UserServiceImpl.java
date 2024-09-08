@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-        return null;
+        List<UserEntity> getAllUsers = userDAO.findAll();
+        return mapping.convertUserToDTOList(getAllUsers);
     }
 }
