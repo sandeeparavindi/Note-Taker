@@ -3,6 +3,7 @@ package com.example.noteTaker.service;
 import com.example.noteTaker.dao.NoteDAO;
 import com.example.noteTaker.dto.impl.NoteDTO;
 import com.example.noteTaker.entity.NoteEntity;
+import com.example.noteTaker.exception.NoteNotFound;
 import com.example.noteTaker.util.AppUtil;
 import com.example.noteTaker.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +25,23 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public String saveNote(NoteDTO noteDTO) {
-        noteDTO.setNoteId(AppUtil.createNote());
+        noteDTO.setNoteId(AppUtil.createNoteId());
         var noteEntity = mapping.converToEntity(noteDTO);
         noteDAO.save(noteEntity);
-        return "Saved successfully in service layer";
+        return "Saved successfully in Service layer";
     }
 
     @Override
-    public boolean updateNote(String noteId, NoteDTO incomeNoteDTO) {
-        Optional<NoteEntity> tmpNoteEntity = noteDAO.findById(noteId);
-        if (!tmpNoteEntity.isPresent()){
-            return false;
-        } else {
+    public void updateNote(String noteId, NoteDTO incomeNoteDTO) {
+        Optional<NoteEntity> tmpNoteEntity= noteDAO.findById(noteId);
+        if(!tmpNoteEntity.isPresent()){
+            throw new NoteNotFound("Note not found");
+        }else {
             tmpNoteEntity.get().setNoteDesc(incomeNoteDTO.getNoteDesc());
             tmpNoteEntity.get().setNoteTitle(incomeNoteDTO.getNoteTitle());
             tmpNoteEntity.get().setCreateDate(incomeNoteDTO.getCreateDate());
             tmpNoteEntity.get().setPriorityLevel(incomeNoteDTO.getPriorityLevel());
         }
-        return true;
     }
 
     @Override
@@ -56,20 +56,11 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public NoteDTO getSelectedNote(String noteId) {
-//     NoteEntity selectedNote = noteDAO.getReferenceById(noteId);
-//     NoteDTO noteDTO = mapping.convertToDTO(selectedNote);
-//     return noteDTO;
-
         return mapping.convertToDTO(noteDAO.getReferenceById(noteId));
-
     }
 
     @Override
     public List<NoteDTO> getAllNotes() {
-//        List<NoteEntity> getAllnotes = noteDAO.findAll();
-//        List<NoteDTO> noteDTOS = mapping.converToDTO(getAllnotes);
-//        return noteDTOS;
-
         return mapping.converToDTO(noteDAO.findAll());
     }
 }
